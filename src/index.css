@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+
+
+
+@theme {
+  /* Colors - Derived from Logo */
+  --color-primary-blue: #2257a3; /* Logo Dark Blue */
+  --color-accent-blue: #3b82f6; /* Logo Mid Blue */
+  --color-turquoise: #0ea5e9; /* Logo Turquoise accent */
+  --color-amber-logo: #f59e0b; /* Logo Amber */
+  --color-slate-logo: #0f172a; /* Deep background */
+  
+  /* Animations */
+  --animate-beer-fill: beer-fill 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --animate-foam-rise: foam-rise 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --animate-bubble: bubble-up 3s infinite ease-in;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-reveal: reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes beer-fill {
+    0% { height: 0%; }
+    100% { height: 80%; }
+  }
+
+  @keyframes foam-rise {
+    0% { 
+        bottom: 0%; 
+        height: 0px; 
+    }
+    10% {
+        height: 30px;
+    }
+    100% { 
+        bottom: 80%; 
+        height: 45px;
+    }
+  }
+
+  @keyframes bubble-up {
+    0% { 
+      transform: translateY(0) scale(0.5); 
+      opacity: 0; 
+    }
+    20% { 
+      opacity: 1; 
+    }
+    80% { 
+      opacity: 0.8; 
+      transform: translateY(-150px) translateX(10px); 
+    }
+    100% { 
+      transform: translateY(-250px) translateX(-10px) scale(1.2); 
+      opacity: 0; 
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes reveal {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-slate-900 text-slate-100 antialiased;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#2257a3] via-[#0ea5e9] to-[#f59e0b];
+  }
+  
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+}
+
