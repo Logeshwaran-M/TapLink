@@ -7,10 +7,9 @@ import Process from './Process';
 import HomeGallery from './HomeGallery';
 import About from './About';
 import Reviews from './Reviews';
+import HomeContact from './HomeContact';
 import Footer from './Footer';
 import FloatingContact from './FloatingContact';
-import MeetExpert from './Process';
-import ProcessSplit from './Process';
 
 const Home = () => {
   return (
@@ -23,6 +22,7 @@ const Home = () => {
       <HomeGallery />
       <About />
       <Reviews />
+      <HomeContact />
       <Footer />
       <FloatingContact />
     </>

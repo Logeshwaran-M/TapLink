@@ -33,8 +33,8 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', id: 'home', path: '/#home' },
-    { name: 'Services', id: 'services', path: '/#services' },
     { name: 'About', id: 'aboutus', path: '/#aboutus' },
+    { name: 'Services', id: 'services', path: '/#services' },
     { name: 'Reviews', id: 'reviews', path: '/#reviews' },
     { name: 'Contact', id: 'contact', path: '/contact' },
   ];

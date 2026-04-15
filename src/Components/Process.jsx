@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { HiOutlineBadgeCheck, HiChevronRight } from 'react-icons/hi';
 
 const Process = () => {
@@ -70,10 +71,13 @@ const Process = () => {
 
             {/* Compact CTA Button */}
             <div className="mt-10">
-              <button className="group px-8 py-4 bg-[#2563eb] text-white font-black rounded-full hover:bg-blue-700 transition-all shadow-xl hover:shadow-blue-500/10 flex items-center gap-3 text-xs uppercase tracking-widest active:scale-95">
+              <Link 
+                to="/contact" 
+                className="inline-flex group px-10 py-5 bg-[#2563eb] text-white font-black rounded-full hover:bg-white hover:text-blue-600 transition-all shadow-xl hover:shadow-blue-500/10 items-center gap-3 text-xs uppercase tracking-widest active:scale-95"
+              >
                 Start Installation
                 <HiChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
           </div>
 

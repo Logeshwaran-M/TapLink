@@ -85,14 +85,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal / Policies */}
+          {/* Location Map Column */}
           <div className="lg:pl-8">
-            <h4 className="text-white font-black uppercase tracking-[0.2em] text-[11px] mb-8">Legal</h4>
-            <ul className="space-y-4">
-              <li><Link to="/privacy" className="text-slate-400 hover:text-white hover:translate-x-1 transition-all inline-block text-sm font-medium">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-slate-400 hover:text-white hover:translate-x-1 transition-all inline-block text-sm font-medium">Terms & Conditions</Link></li>
-              <li><Link to="/cookie" className="text-slate-400 hover:text-white hover:translate-x-1 transition-all inline-block text-sm font-medium">Cookie Policy</Link></li>
-            </ul>
+            <h4 className="text-white font-black uppercase tracking-[0.2em] text-[11px] mb-8">Locate Us</h4>
+            <div className="w-full h-32 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.2155745163098!2d77.52554227507727!3d13.023246887296068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d88686d63dd%3A0xe726715f3f4c0d48!2sLaggere%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1713092400000!5m2!1sen!2sin" 
+                width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" title="TapLink HQ"
+              ></iframe>
+            </div>
           </div>
         </div>
 
