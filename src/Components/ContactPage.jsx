@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import FloatingContact from './FloatingContact';
@@ -6,25 +6,53 @@ import { HiMail, HiLocationMarker, HiPhone, HiArrowLeft } from 'react-icons/hi';
 import { MdPerson } from 'react-icons/md';
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState({ loading: false, message: '', type: '' });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus({ loading: true, message: '', type: '' });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus({ loading: false, message: 'Thank you! Your inquiry has been sent.', type: 'success' });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error(data.error || 'Connection error.');
+      }
+    } catch (error) {
+      setStatus({ loading: false, message: error.message, type: 'error' });
+    }
+  };
+
   return (
     <div className="bg-slate-50 min-h-screen text-slate-900">
       
-      {/* Banner Hero - Scaled down for "small UI" */}
+      {/* Banner Hero */}
       <section className="relative min-h-[30vh] md:min-h-[20vh] flex items-center justify-start overflow-hidden py-8 md:py-10">
-        {/* Full Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{ backgroundImage: "url('/banner1.png')" }}
         ></div>
 
-        {/* Gradient Overlay for Readability */}
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
         
-        {/* Content Container */}
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start text-left">
           <div className="max-w-3xl space-y-3 animate-reveal">
             <div className="pb-1">
@@ -55,7 +83,7 @@ const ContactPage = () => {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 mb-16">
             
-            {/* Column 1: Contact Details */}
+            {/* Contact Details */}
             <div className="h-full flex flex-col justify-between">
               <div className="space-y-10">
                 <div>
@@ -68,7 +96,6 @@ const ContactPage = () => {
                 </div>
 
                 <div className="space-y-6">
-                  {/* Contact Items */}
                   <div className="flex gap-5 group">
                     <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-[#2563eb] border border-blue-100 group-hover:bg-[#2563eb] group-hover:text-white transition-all">
                       <HiPhone size={20} />
@@ -111,35 +138,45 @@ const ContactPage = () => {
               </div>
             </div>
 
-            {/* Column 2: Form */}
+            {/* Form */}
             <div className="bg-slate-50 p-8 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-sm h-full flex flex-col justify-center">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
-                    <input type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all" placeholder="John Doe" required />
+                    <input name="name" value={formData.name} onChange={handleChange} type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all" placeholder="John Doe" required />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
-                    <input type="email" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all" placeholder="john@example.com" required />
+                    <input name="email" value={formData.email} onChange={handleChange} type="email" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all" placeholder="john@example.com" required />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Project Subject</label>
-                  <input type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all" placeholder="How can we help?" required />
+                  <input name="subject" value={formData.subject} onChange={handleChange} type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all" placeholder="How can we help?" required />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Message</label>
-                  <textarea rows="4" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-all resize-none" placeholder="Tell us about your requirements..."></textarea>
+                  <textarea name="message" value={formData.message} onChange={handleChange} rows="4" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all resize-none" placeholder="Tell us about your requirements..."></textarea>
                 </div>
-                <button type="submit" className="w-full py-5 bg-[#2563eb] hover:bg-black text-white font-black rounded-xl transition-all uppercase tracking-widest text-xs shadow-xl active:scale-95">
-                  Send Inquiry
+                
+                <button 
+                  type="submit" 
+                  disabled={status.loading}
+                  className={`w-full py-5 ${status.loading ? 'bg-slate-400' : 'bg-[#2563eb] hover:bg-black'} text-white font-black rounded-xl transition-all uppercase tracking-widest text-xs shadow-xl active:scale-95`}
+                >
+                  {status.loading ? 'Sending...' : 'Send Inquiry'}
                 </button>
+
+                {status.message && (
+                  <div className={`mt-4 p-4 rounded-xl text-center text-xs font-bold ${status.type === 'success' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
+                    {status.message}
+                  </div>
+                )}
               </form>
             </div>
           </div>
 
-          {/* Full Width Map Row */}
           <div className="mt-16">
              <div className="w-full h-[400px] rounded-[3rem] overflow-hidden border border-slate-100 shadow-2xl relative">
               <iframe 
