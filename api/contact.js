@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   // Zoho Mail SMTP Configuration
   const transporter = nodemailer.createTransport({
-    host: 'smtppro.zoho.in', // Change to smtp.zoho.com if using global version
+    host:'smtp.zoho.in', // Change to smtp.zoho.com if using global version
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
