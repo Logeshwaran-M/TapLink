@@ -66,7 +66,7 @@ const Services = () => {
           <div className="w-full md:w-1/2">
             <span className="text-5xl font-black text-slate-100 block mb-2">0{i + 1}</span>
             <h3 className="text-3xl font-bold text-slate-900 mb-4 border-l-4 border-blue-600 pl-4 uppercase tracking-tight">{service.title}</h3>
-            <p className="text-slate-800 text-base md:text-lg mb-8 font-bold leading-relaxed max-w-xl">
+            <p className="text-slate-800 text-base md:text-lg mb-8 font-medium leading-relaxed max-w-xl">
               {service.desc}
             </p>
             <Link to={`/service/${service.id}`} className="bg-[#2563eb] text-white px-10 py-4 rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-black transition-all shadow-lg shadow-blue-900/10 active:scale-95">
