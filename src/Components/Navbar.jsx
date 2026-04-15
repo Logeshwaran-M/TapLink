@@ -12,25 +12,16 @@ const Navbar = () => {
     if (!isHomePage) return;
 
     const handleScroll = () => {
-      const sections = ['home', 'services', 'process', 'aboutus', 'contact'];
+      const sections = ['home', 'services', 'aboutus', 'reviews', 'contact'];
       const targetPoint = window.innerHeight / 3;
-
-      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
-      if (isAtBottom) {
-        setActiveTab('contact');
-        return;
-      }
 
       for (const id of sections) {
         const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= targetPoint && rect.bottom >= targetPoint) {
-            if (['home', 'services', 'aboutus', 'contact'].includes(id)) {
-              setActiveTab(id);
-            }
-            break;
-          }
+        if (!element) continue;
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= targetPoint && rect.bottom >= targetPoint) {
+          setActiveTab(id);
+          break;
         }
       }
     };
@@ -41,110 +32,117 @@ const Navbar = () => {
   }, [isHomePage]);
 
   const navItems = [
-    { name: 'Home', id: 'home', path: '/' },
+    { name: 'Home', id: 'home', path: '/#home' },
     { name: 'Services', id: 'services', path: '/#services' },
-    { name: 'About Us', id: 'aboutus', path: '/#aboutus' },
+    { name: 'About', id: 'aboutus', path: '/#aboutus' },
+    { name: 'Reviews', id: 'reviews', path: '/#reviews' },
+    { name: 'Contact', id: 'contact', path: '/contact' },
   ];
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[100] px-4 py-2 md:py-4 transition-all duration-300">
-        <div className="max-w-7xl mx-auto flex justify-between items-center glass rounded-2xl px-5 py-2 border border-white/10 shadow-2xl backdrop-blur-xl">
-          {/* Logo Section */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-2 group">
-              <img 
-                src="/Logo.png" 
-                alt="TapLink Logo" 
-                className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-110" 
-              />
-              <span className="text-xl font-black tracking-tighter text-white">
-                TAP<span className="text-[#0ea5e9]"> LINK</span>
-              </span>
-            </Link>
-          </div>
+      <nav className="fixed top-0 left-0 right-0 z-[100] px-4 py-4 md:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-slate-200 bg-white shadow-xl px-5 py-3">
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/Logo.png" alt="TapLink Logo" className="h-8 w-auto object-contain" />
+            <span className="text-xs font-black tracking-[0.3em] text-[#2563eb]">TAPLINK</span>
+          </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center space-x-10">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => {
               const isActive = isHomePage && activeTab === item.id;
+              // Special case for routing to contact page
+              const isContact = item.id === 'contact';
+              
+              if (isContact) {
+                 return (
+                  <Link
+                    key={item.id}
+                    to={item.path}
+                    className={`text-[11px] uppercase tracking-[0.3em] font-black transition-all ${
+                      location.pathname === '/contact' ? 'text-[#2563eb]' : 'text-[#334155] hover:text-[#2563eb]'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              }
+
               return (
-                <a 
-                  key={item.id} 
-                  href={item.path} 
-                  className={`text-[10px] font-black uppercase tracking-[0.2em] transition-all relative group ${
-                    isActive ? 'text-[#0ea5e9]' : 'text-slate-300 hover:text-[#0ea5e9]'
+                <a
+                  key={item.id}
+                  href={item.path}
+                  className={`text-[11px] uppercase tracking-[0.3em] font-black transition-all ${
+                    isActive ? 'text-[#2563eb]' : 'text-[#334155] hover:text-[#2563eb]'
                   }`}
                 >
                   {item.name}
-                  <span className={`absolute -bottom-1.5 left-0 h-1 bg-[#2257a3] rounded-full transition-all duration-300 ${
-                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`}></span>
                 </a>
               );
             })}
           </div>
 
-          {/* Desktop Call to Action */}
-          <div className="hidden md:block">
-            <Link 
-              to="/contact" 
-              className={`px-6 py-2.5 font-black rounded-xl transition-all text-[10px] uppercase tracking-widest shadow-lg ${
-                location.pathname === '/contact' 
-                  ? 'bg-white text-[#2257a3] scale-105' 
-                  : 'bg-[#2257a3] hover:bg-[#1d4b8f] text-white hover:shadow-[#2257a3]/40'
-              }`}
-            >
-              Contact Us
-            </Link>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+          <Link
+            to="/contact"
+            className="hidden md:inline-flex rounded-full bg-[#0f172a] px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-white transition-all hover:bg-[#2563eb] shadow-lg shadow-blue-900/10 active:scale-95"
           >
-            {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+            Book Now
+          </Link>
+
+          <button
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="md:hidden rounded-full p-2 text-[#0f172a]"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Sidebar Overlay */}
-      <div 
-        className={`fixed inset-0 z-[90] bg-slate-950/90 backdrop-blur-md transition-all duration-500 md:hidden ${
+      <div
+        className={`fixed inset-0 z-[90] bg-white/95 backdrop-blur-xl transition-all md:hidden ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsOpen(false)}
       >
-        <div 
-          className={`absolute top-0 right-0 h-full w-[80%] bg-slate-900 border-l border-white/10 p-8 pt-24 transition-transform duration-500 transform ${
+        <div
+          className={`absolute right-0 top-0 h-full w-[78%] bg-white p-8 pt-24 transition-transform shadow-2xl ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex flex-col space-y-8">
-            {navItems.map((item) => (
-              <a 
-                key={item.id} 
-                href={item.path} 
-                onClick={() => setIsOpen(false)}
-                className="text-2xl font-black text-white hover:text-[#0ea5e9] transition-colors tracking-tight"
-              >
-                {item.name}
-              </a>
-            ))}
-            <Link 
-              to="/contact" 
+          <div className="flex flex-col gap-8">
+            {navItems.map((item) => {
+               if (item.id === 'contact') {
+                 return (
+                   <Link
+                    key={item.id}
+                    to={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className="text-2xl font-black tracking-[0.1em] text-[#0f172a] uppercase"
+                  >
+                    {item.name}
+                  </Link>
+                 )
+               }
+               return (
+                <a
+                  key={item.id}
+                  href={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className="text-2xl font-black tracking-[0.1em] text-[#0f172a] uppercase"
+                >
+                  {item.name}
+                </a>
+              );
+            })}
+            <Link
+              to="/contact"
               onClick={() => setIsOpen(false)}
-              className="bg-[#2257a3] text-white p-5 rounded-2xl text-center font-black text-lg shadow-xl"
+              className="mt-6 rounded-2xl bg-[#0f172a] px-5 py-5 text-center text-xs font-black uppercase tracking-[0.3em] text-white shadow-xl active:scale-95"
             >
-              Contact Us
+              Book Now
             </Link>
-          </div>
-
-          <div className="mt-20 border-t border-white/5 pt-8 text-center text-slate-500">
-            <p className="text-xs font-bold uppercase tracking-widest">Inquire Now</p>
-            <p className="text-white font-black mt-2">pradeep@taplinkindia.in</p>
           </div>
         </div>
       </div>
@@ -153,7 +151,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-

@@ -9,18 +9,18 @@ const stats = [
 
 const StatsSection = () => {
   return (
-    <section className="py-12 bg-slate-900 border-y border-white/5">
+    <section className="py-12 bg-white border-y border-white/5">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
             <div 
               key={index} 
-              className="group p-5 rounded-xl bg-white/5 border border-white/10 hover:border-[#2257a3]/50 transition-all text-center"
+              className="group p-5 rounded-xl bg-white/5 border border-white/10 hover:border-[#2563eb]/50 transition-all text-center"
             >
-              <div className="flex justify-center text-[#0ea5e9] mb-3 group-hover:scale-110 transition-transform">
+              <div className="flex justify-center text-[#60a5fa] mb-3 group-hover:scale-110 transition-transform">
                 {stat.icon}
               </div>
-              <div className="text-2xl font-black text-white mb-1 group-hover:text-[#0ea5e9] transition-colors">
+              <div className="text-2xl font-black text-blue-900 mb-1 group-hover:text-[#60a5fa] transition-colors">
                 {stat.value}
               </div>
               <div className="text-slate-500 font-bold uppercase text-[9px] tracking-[0.2em]">

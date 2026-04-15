@@ -6,9 +6,11 @@ import Services from './Services';
 import Process from './Process';
 import HomeGallery from './HomeGallery';
 import About from './About';
-import Contact from './Contact';
+import Reviews from './Reviews';
 import Footer from './Footer';
 import FloatingContact from './FloatingContact';
+import MeetExpert from './Process';
+import ProcessSplit from './Process';
 
 const Home = () => {
   return (
@@ -17,10 +19,10 @@ const Home = () => {
       <Hero />
       <StatsSection />
       <Services />
-      <Process />
+      <Process/>
       <HomeGallery />
       <About />
-      <Contact />
+      <Reviews />
       <Footer />
       <FloatingContact />
     </>

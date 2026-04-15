@@ -12,7 +12,7 @@ import ContactPage from './Components/ContactPage';
 function App() {
   return (
     <Router>
-      <div className="font-sans text-slate-100 bg-slate-900">
+      <div className="font-sans text-blue-900 bg-white">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/service/:id" element={
