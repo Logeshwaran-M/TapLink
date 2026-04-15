@@ -133,9 +133,7 @@ const ContactPage = () => {
                 </div>
               </div>
 
-              <div className="pt-8 mt-12 border-t border-slate-100 opacity-50 hidden lg:block">
-                <p className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Global Engineering Standards • ISO Certified</p>
-              </div>
+             
             </div>
 
             {/* Form */}
@@ -143,20 +141,20 @@ const ContactPage = () => {
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
+                    <label className="text-[10px] font-bold text-slate-900 uppercase tracking-widest ml-1">Full Name</label>
                     <input name="name" value={formData.name} onChange={handleChange} type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all" placeholder="John Doe" required />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
+                    <label className="text-[10px] font-bold text-slate-900 uppercase tracking-widest ml-1">Email Address</label>
                     <input name="email" value={formData.email} onChange={handleChange} type="email" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all" placeholder="john@example.com" required />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Project Subject</label>
+                  <label className="text-[10px] font-bold text-slate-900 uppercase tracking-widest ml-1">Project Subject</label>
                   <input name="subject" value={formData.subject} onChange={handleChange} type="text" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all" placeholder="How can we help?" required />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Message</label>
+                  <label className="text-[10px] font-bold text-slate-900 uppercase tracking-widest ml-1">Message</label>
                   <textarea name="message" value={formData.message} onChange={handleChange} rows="4" className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-[#0f172a] text-sm focus:outline-none focus:border-[#2563eb] transition-all resize-none" placeholder="Tell us about your requirements..."></textarea>
                 </div>
                 
